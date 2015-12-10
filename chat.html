@@ -1,0 +1,317 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title> tinyChat </title>
+    <script type="text/javascript" src="http://yun.0xsky.com:8000/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript">
+
+        const cmd_login = 10;
+        const cmd_logout = 11;
+        const cmd_chat_send = 12;
+        const cmd_chat_recv = 13;
+        const cmd_friendlist = 14;
+        const cmd_friendopt = 15;
+        const cmd_get_userinfo = 16;
+        const cmd_set_userinfo = 17;
+
+        const opt_add = 1;
+        const opt_del = 2;
+
+        var ws;
+        var User = new Object();
+        ;
+
+        window.onload = function () {
+            if ("WebSocket" in window) {
+                ws = new WebSocket("ws://221.228.215.38:1081/chat");
+                ws.onopen = function () {
+                    $("log").innerHTML = '已成功连接服务器，您现在可以试试发送消息。';
+                    $("conn").disabled = false;
+                    $("conn").value = "点击发送消息";
+                }
+                ws.onclose = function () {
+                    $("log").innerHTML = '与服务器连接已断开.';
+                    $("conn").disabled = true;
+                }
+                ws.onmessage = function (msg) {
+                    console.log("recv:" + msg.data);
+                    var obj = JSON.parse(msg.data);
+                    switch (obj.cmd) {
+                        case cmd_login:
+                        {
+                            onUserLogin(obj);
+                            break;
+                        }
+                        case cmd_chat_recv:
+                        {
+                            onUserChat(obj);
+                            break;
+                        }
+                        case cmd_chat_send:
+                        {
+                            break;
+                        }
+                        case cmd_friendlist:
+                        {
+                            onFriendlist(obj);
+                            break;
+                        }
+                        case cmd_get_userinfo:
+                        {
+                            onGetUserinfo(obj);
+                            break;
+                        }
+                        default:
+                        {
+                            $("output").value += " 收到出错包:" + obj.cmd;
+                        }
+                    }
+                    //$("output").value += msg.data + "\n";
+                }
+                ws.onerror = function (msg) {
+                    $("log").innerHTML = '出错了.';
+                    $("conn").disabled = true;
+                }
+                $("conn").onclick = function () {
+                    var msg = $("mymsg").value;
+                    if (msg.length > 0) {
+                        if (msg == ":clear") {
+                            $("output").value = "";
+                        } else if (msg == ":help") {
+                            alert("wwwwwwwwwwww");
+                        } else {
+                            SendChatMessgae("ww", msg);
+
+                        }
+                        $("mymsg").value = "";
+                    }
+                }
+
+                $("btlogin").onclick = function () {
+                    var user = $("username").value;
+                    var pass = $("passwd").value;
+                    User.user = user;
+
+                    if (user.length > 0 && pass.length > 0) {
+                        var loginpacket = new Object();
+                        loginpacket.cmd = cmd_login;
+                        loginpacket.ver = 111;
+                        loginpacket.account = user;
+                        loginpacket.pass = pass;
+                        SendPacket(loginpacket);
+                    }
+                }
+
+            } else {
+                $("log").innerHTML = "对不起!您的浏览器不支持webSocket.";
+            }
+        };
+
+        function $(id) {
+            if (typeof id == "string") {
+                return document.getElementById(id);
+            }
+            return id;
+        }
+        function SendPacket(packet) {
+            console.log("send:" + JSON.stringify(packet));
+            ws.send(JSON.stringify(packet));
+        }
+
+        function GetFriendList() {
+            var getfriendspacket = new Object();
+            getfriendspacket.cmd = cmd_friendlist;
+            getfriendspacket.ver = 111;
+            getfriendspacket.userid = User.userid;
+            SendPacket(getfriendspacket);
+        }
+
+        function FriendOperation(type, friendid) {
+            var friendoptpacket = new Object();
+            friendoptpacket.cmd = cmd_friendopt;
+            friendoptpacket.ver = 111;
+            friendoptpacket.userid = User.userid;
+            friendoptpacket.type = type;
+            friendoptpacket.friendid = friendid;
+            SendPacket(friendoptpacket);
+        }
+
+        function SendChatMessgae(toUid, msg) {
+            var chatpacket = new Object();
+            chatpacket.cmd = cmd_chat_send;
+            chatpacket.ver = 111;
+            chatpacket.userid = User.userid;
+            chatpacket.msgfrom = User.userid;
+            chatpacket.msgto = 2222;
+            chatpacket.msg = msg;
+            SendPacket(chatpacket);
+            $("output").value += chatpacket.msgfrom + ": " + chatpacket.msg + "\n";
+            SendChat(chatpacket);
+        }
+
+        function SendGetUserinfo(idlist) {
+            var chatpacket = new Object();
+            chatpacket.cmd = cmd_get_userinfo;
+            chatpacket.ver = 111;
+            chatpacket.userid = User.userid;
+            chatpacket.type = 0; // 0 基本信息 1 详细信息
+            chatpacket.friendlist = idlist;
+            SendPacket(chatpacket);
+        }
+
+        function onUserLogin(loginpacket) {
+            if (1 == loginpacket.result) {
+                User.userid = loginpacket.userid;
+                $("output").value += loginpacket.userid + " 登陆成功\n";
+                GetFriendList();
+            } else {
+                $("output").value += loginpacket.userid + " 登陆失败\n";
+            }
+        }
+
+        function SendChat(chatpacket) {
+            $("output").value += chatpacket.msgfrom + ": " + chatpacket.msg + "\n";
+            var htmls = jQuery("#chatdlg").html();
+            alert(htmls);
+            htmls += "<div id=\"msgitem\"><div id=\"chat_name\">  " + chatpacket.msgfrom + " </div>";
+            htmls += "<div id=\"chat_msg\">  " + chatpacket.msg + " </div></div>";
+            jQuery("#chatdlg").html(htmls)
+        }
+        function onUserChat(chatpacket) {
+            $("output").value += chatpacket.msgfrom + ": " + chatpacket.msg + "\n";
+
+            $("chatdlg").innerHTML += "<div id=\"msgitem\"><div id=\"chat_name\">  " + chatpacket.msgfrom + " </div>";
+            $("chatdlg").innerHTML += "<div id=\"chat_msg\">  " + chatpacket.msg + " </div></div>";
+
+        }
+
+        function onFriendlist(friendlistPacket) {
+            var flist = friendlistPacket.friends;
+            $("output").value += "friends:\n";
+            for (var i in flist) {
+                $("output").value += flist[i] + "\n";
+            }
+            flist.unshift(User.userid);
+            SendGetUserinfo(flist);
+        }
+
+        function onGetUserinfo(Packet) {
+            var infolist = Packet.infolist;
+            var html_list = "<table>";
+            var select_list = "<select name=\"ids\">";
+            $("output").value += "friends:\n";
+            for (var i in infolist) {
+                $("output").value += "userid:" + infolist[i].userid + " ";
+                $("output").value += "sex:" + infolist[i].sex + " ";
+                $("output").value += "nickname:" + infolist[i].nickname + " ";
+                $("output").value += "avatar:" + infolist[i].avatar + " \n";
+                $("output").value += "signature:" + infolist[i].signature + " \n";
+                $("output").value += "\n";
+                html_list += "<tr><td>" + infolist[i].userid + "</td><td> <img src='" + infolist[i].avatar + "'/></td><td>" + infolist[i].nickname + "</td> </tr>";
+                select_list += "<option value=\"" + infolist[i].userid + "\">" + infolist[i].nickname + "</option>";
+            }
+            html_list += "</table>";
+            select_list += "</select>";
+
+            $("friendlist").innerHTML = html_list;
+            $("idlist").innerHTML = select_list;
+
+        }
+
+
+    </script>
+
+
+    <style type="text/css">
+        * {
+            font-size: 12px;
+            font-family: Consolas, Arial;
+        }
+
+        .empty_div{
+            width: 100%;
+            height: 20px;
+        }
+
+        table {
+            width: 80%;
+            border-spacing: 0;
+            border-collapse: collapse;
+            padding: 0;
+            white-space: nowrap;
+        }
+
+        tr:hover {
+            background: #eee;
+        }
+
+        th, td {
+            border: 1px solid #888;
+            padding: 2px 6px 2px 6px;
+        }
+
+        #msgitem {
+            height: 20px;
+            width: 682px;
+            margin: 1px; /*设置元素跟其他元素的距离为20像素*/
+            float: none; /*设置浮动，实现多列效果，div+Css布局中很重要的*/
+            background: #FFF;
+        }
+
+        #chat_name {
+            height: 20px;
+            width: 60px;
+            margin: 1px;
+            float: left;
+            background: #C2C2C2;
+        }
+
+        #chat_msg {
+            height: 20px;
+            width: 600px;
+            margin: 1px; /*设置元素跟其他元素的距离为20像素*/
+            float: left; /*设置浮动，实现多列效果，div+Css布局中很重要的*/
+            background: #F2F2F2;
+        }
+    </style>
+
+</head>
+
+<body>
+
+username:<input type="text" name="username" id="username" size="20" value="test"/>
+passwd:<input type="text" name="passwd" id="passwd" size="20" value="123456"/>
+<input name="btlogin" type="submit" id="btlogin" value="登陆"/>
+
+<a href="debug.html" target="_blank">debug</a>
+
+<p>状态：<span id="log">正在连接服务器...</span></p>
+<br><br>
+
+<div id="friendlist" name="friendlist" style="width:200px"></div>
+
+<div class="empty_div"></div>
+
+<div id="idlist"></div>
+
+<div class="empty_div"></div>
+
+<div id="chatdlg" style="border:solid 1px ; min-height: 100px; width:682px; overflow: scroll;">
+
+</div>
+
+<div class="empty_div"></div>
+
+<div>
+    <form action="#@" method="get" name="frmmsg" onsubmit="return false;">
+        <input type="text" name="mymsg" id="mymsg" size="70"/>
+        <input name="conn" type="submit" id="conn" value="连接成功后才能发送" disabled="disabled"/>
+    </form>
+</div>
+
+
+<textarea name="output" cols="70" rows="1" id="output" readonly="readonly"
+          style='position:absolute; bottom:2px; width:99%; color:#3AB1F5; background:#000000;display: none;'></textarea>
+
+</body>
+</html>

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="keyword" content="实时聊天,在线聊天,web聊天">
+    <title>在线实时聊天消息系统</title>
+    <link rel="stylesheet" type="text/css" href="res/bootstrap-3.3.5-dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="res/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" type="text/css" href="res/css/commom.css"/>
+
+    <link rel="stylesheet" type="text/css" href="list/css/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="list/css/default.css"/>
+    <link rel="stylesheet" type="text/css" href="list/css/site.css"/>
+
+    <script type="text/javascript" src="res/js/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="res/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="res/js/user/common.js"></script>
+    <script type="text/javascript" src="list/js/html5shiv.mim.js"></script>
+    <script type="text/javascript" src="list/js/jquery.bootstrap.newsbox.min.js"></script>
+</head>
+
+<body>
+<div class="container-fluid container_bg">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-3 main_box_bg">
+            <!--Contents Start-->
+            <div class="row">
+                <div class="col-md-12 main_box_bg_content">
+                    <!--Login Start-->
+                    <div class="row hidden" id="id_login_detail_div">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            <div class="empty_box_big_inherit"></div>
+                            
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <img src="res/images/octocat_setup.png">
+                                </div>
+                            </div>
+
+                            <div class="empty_box_mini_inherit"></div>
+
+                            <div class="input-group login_main_content">
+                                <span class="input-group-addon" id="id_login_username">Username:</span>
+                                <input type="text" class="form-control" placeholder="username" name="username" id="id_input_username"
+                                       aria-describedby="id_login_username">
+                            </div>
+
+                            <div class="empty_box_mini_inherit login_main_content"></div>
+
+                            <div class="input-group login_main_content">
+                                <span class="input-group-addon" id="id_login_password">Password:</span>
+                                <input type="password" class="form-control" placeholder="password" name="password" id="id_input_password"
+                                       aria-describedby="id_login_password">
+                            </div>
+
+                            <div class="empty_box_mini_inherit"></div>
+
+                            <div class="empty_box_mini_inherit login_main_content">
+                                <div class="input-group" style="float: right;" id="id_login_button">
+                                    <button class="btn btn-success" type="button">Login</button>
+                                </div>
+                            </div>
+                            <div class="login_status_msg hidden">
+                                <button class="btn btn-default btn-success">Add id Successful.</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Login End-->
+
+                    <!--Friends List Start-->
+                    <div class="panel panel-default margin_top_15px hidden" id="id_friend_lists_detail_div">
+                        <div class="panel-body" style="background-color: #222;">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <ul class="demo1">
+                                        <li class="news-item">
+                                            <table cellpadding="4">
+                                                <tr>
+                                                    <td>
+                                                        <img src="list/images/1.png" width="45" class="img-circle pointer_style"/>
+                                                    </td>
+                                                    <td>
+                                                        <div class="margin_left_10px">I'm foolish!</div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </li>
+                                        <li class="news-item">
+                                            <table cellpadding="4">
+                                                <tr>
+                                                    <td><img src="list/images/2.png" width="45" class="img-circle pointer_style"/>
+                                                    </td>
+                                                    <td>
+                                                        <div class="margin_left_10px">I'm foolish!</div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </li>
+                                        <li class="news-item">
+                                            <table cellpadding="4">
+                                                <tr>
+                                                    <td><img src="list/images/3.png" width="45" class="img-circle pointer_style"/>
+                                                    </td>
+                                                    <td>
+                                                        <div class="margin_left_10px">I'm foolish!</div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </li>
+                                        <li class="news-item">
+                                            <table cellpadding="4">
+                                                <tr>
+                                                    <td><img src="list/images/4.png" width="45" class="img-circle pointer_style"/>
+                                                    </td>
+                                                    <td>
+                                                        <div class="margin_left_10px">I'm foolish!</div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </li>
+                                        <li class="news-item">
+                                            <table cellpadding="4">
+                                                <tr>
+                                                    <td><img src="list/images/5.png" width="45" class="img-circle pointer_style"/>
+                                                    </td>
+                                                    <td>
+                                                        <div class="margin_left_10px">黑客不可怕，可怕的是我不能成为黑客</div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </li>
+                                        <li class="news-item">
+                                            <table cellpadding="4">
+                                                <tr>
+                                                    <td><img src="list/images/3.png" width="45" class="img-circle pointer_style"/>
+                                                    </td>
+                                                    <td>
+                                                        <div class="margin_left_10px">I'm foolish!</div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </li>
+                                        <li class="news-item">
+                                            <table cellpadding="4">
+                                                <tr>
+                                                    <td><img src="list/images/4.png" width="45" class="img-circle pointer_style"/>
+                                                    </td>
+                                                    <td>
+                                                        <div class="margin_left_10px">I'm foolish!</div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </li>
+                                        <li class="news-item">
+                                            <table cellpadding="4">
+                                                <tr>
+                                                    <td><img src="list/images/5.png" width="45" class="img-circle pointer_style"/>
+                                                    </td>
+                                                    <td>
+                                                        <div class="margin_left_10px">黑客不可怕，可怕的是我不能成为黑客</div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </li>
+                                        <li class="news-item">
+                                            <table cellpadding="4">
+                                                <tr>
+                                                    <td><img src="list/images/6.png" width="45" class="img-circle pointer_style"/>
+                                                    </td>
+                                                    <td>
+                                                        <div class="margin_left_10px">需要怎样的勇气</div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </li>
+                                        <li class="news-item">
+                                            <table cellpadding="4">
+                                                <tr>
+                                                    <td><img src="list/images/7.png" width="45" class="img-circle pointer_style"/>
+                                                    </td>
+                                                    <td>
+                                                        <div class="margin_left_10px">Unix网路编程之美</div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </li>
+                                        <li class="news-item">
+                                            <table cellpadding="4">
+                                                <tr>
+                                                    <td><img src="list/images/7.png" width="45" class="img-circle pointer_style"/>
+                                                    </td>
+                                                    <td>
+                                                        <div class="margin_left_10px">天空那么蓝，一朵白云在哪！</div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </li>
+                                        <li class="news-item">
+                                            <table cellpadding="4">
+                                                <tr>
+                                                    <td><img src="list/images/7.png" width="45" class="img-circle pointer_style"/>
+                                                    </td>
+                                                    <td>
+                                                        <div class="margin_left_10px">Stay hungry, stay foolish!</div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </li>
+                                        <li class="news-item">
+                                            <table cellpadding="4">
+                                                <tr>
+                                                    <td><img src="list/images/7.png" width="45" class="img-circle pointer_style"/>
+                                                    </td>
+                                                    <td>
+                                                        <div class="margin_left_10px">世界那么大，我想去看海！</div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Friends List End-->
+
+                    <!--右侧聊天详情Start-->
+                    <div class="row main_box_bg hidden" id="id_chatting_detail_div" style="border-color: #222;">
+                        <div class="col-md-12 main_box_bg_content">
+                            <div class="row">
+                                <div class="col-md-1" title="hello">
+                                    <img width="30" height="30" src="list/images/1.png">
+                                </div>
+                                <div class="col-md-9 margin_left_15px">
+                                    <div class="chat_box_left_style">中南大学坐落在美丽的星城长沙，倚巍巍岳麓、临滔滔湘水。</div>
+                                </div>
+                            </div>
+                            <div class="empty_box_mini_inherit"></div>
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-9">
+                                    <div class="chat_box_right_style">中南大学坐落在美丽的星城长沙，倚巍巍岳麓、临滔滔湘水。</div>
+                                </div>
+                                <div class="col-md-1">
+                                    <img width="30" height="30" src="list/images/2.png">
+                                </div>
+                            </div>
+
+                            <div class="empty_box_mini_inherit"></div>
+                            <div class="row">
+                                <div class="col-md-1" title="hello">
+                                    <img width="30" height="30" src="list/images/1.png">
+                                </div>
+                                <div class="col-md-9 margin_left_15px">
+                                    <div class="chat_box_left_style">中南大学坐落在美丽的星城长沙，倚巍巍岳麓、临滔滔湘水。</div>
+                                </div>
+                            </div>
+                            <div class="empty_box_mini_inherit"></div>
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-9">
+                                    <div class="chat_box_right_style">中南大学坐落在美丽的星城长沙，倚巍巍岳麓、临滔滔湘水。</div>
+                                </div>
+                                <div class="col-md-1">
+                                    <img width="30" height="30" src="list/images/2.png">
+                                </div>
+                            </div>
+
+                            <div class="empty_box_mini_inherit"></div>
+                            <div class="row">
+                                <div class="col-md-1" title="hello">
+                                    <img width="30" height="30" src="list/images/1.png">
+                                </div>
+                                <div class="col-md-9 margin_left_15px">
+                                    <div class="chat_box_left_style">中南大学坐落在美丽的星城长沙，倚巍巍岳麓、临滔滔湘水。</div>
+                                </div>
+                            </div>
+                            <div class="empty_box_mini_inherit"></div>
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-9">
+                                    <div class="chat_box_right_style">中南大学坐落在美丽的星城长沙，倚巍巍岳麓、临滔滔湘水。</div>
+                                </div>
+                                <div class="col-md-1">
+                                    <img width="30" height="30" src="list/images/2.png">
+                                </div>
+                            </div>
+
+                            <div class="empty_box_mini_inherit"></div>
+                            <div class="row">
+                                <div class="col-md-1" title="hello">
+                                    <img width="30" height="30" src="list/images/1.png">
+                                </div>
+                                <div class="col-md-9 margin_left_15px">
+                                    <div class="chat_box_left_style">中南大学坐落在美丽的星城长沙，倚巍巍岳麓、临滔滔湘水。</div>
+                                </div>
+                            </div>
+                            <div class="empty_box_mini_inherit"></div>
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-9">
+                                    <div class="chat_box_right_style">中南大学坐落在美丽的星城长沙，倚巍巍岳麓、临滔滔湘水。</div>
+                                </div>
+                                <div class="col-md-1">
+                                    <img width="30" height="30" src="list/images/2.png">
+                                </div>
+                            </div>
+
+                            <div class="empty_box_mini_inherit"></div>
+                            <div class="row">
+                                <div class="col-md-1" title="hello">
+                                    <img width="30" height="30" src="list/images/1.png">
+                                </div>
+                                <div class="col-md-9 margin_left_15px">
+                                    <div class="chat_box_left_style">中南大学坐落在美丽的星城长沙，倚巍巍岳麓、临滔滔湘水。</div>
+                                </div>
+                            </div>
+                            <div class="empty_box_mini_inherit"></div>
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-9">
+                                    <div class="chat_box_right_style">中南大学坐落在美丽的星城长沙，倚巍巍岳麓、临滔滔湘水。</div>
+                                </div>
+                                <div class="col-md-1">
+                                    <img width="30" height="30" src="list/images/2.png">
+                                </div>
+                            </div>
+
+                            <div class="empty_box_mini_inherit"></div>
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-9">
+                                    <div class="chat_box_right_style">中南大学坐落在美丽的星城长沙，倚巍巍岳麓、临滔滔湘水。</div>
+                                </div>
+                                <div class="col-md-1">
+                                    <img width="30" height="30" src="list/images/2.png">
+                                </div>
+                            </div>
+                            <div class="empty_box_mini_inherit"></div>
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-9">
+                                    <div class="chat_box_right_style">中南大学坐落在美丽的星城长沙，倚巍巍岳麓、临滔滔湘水。</div>
+                                </div>
+                                <div class="col-md-1">
+                                    <img width="30" height="30" src="list/images/2.png">
+                                </div>
+                            </div>
+                            <div class="empty_box_mini_inherit"></div>
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-9">
+                                    <div class="chat_box_right_style">中南大学坐落在美丽的星城长沙，倚巍巍岳麓、临滔滔湘水。</div>
+                                </div>
+                                <div class="col-md-1">
+                                    <img width="30" height="30" src="list/images/2.png">
+                                </div>
+                            </div>
+
+                            <div class="empty_box_mini_inherit"></div>
+                            <div class="row">
+                                <div class="col-md-1" title="hello">
+                                    <img width="30" height="30" src="list/images/1.png">
+                                </div>
+                                <div class="col-md-9 margin_left_15px">
+                                    <div class="chat_box_left_style">中南大学坐落在美丽的星城长沙，倚巍巍岳麓、临滔滔湘水。</div>
+                                </div>
+                            </div>
+
+                            <input type="hidden" name="input_hidden_send_msg" id="input_hidden_send_msg">
+                        </div>
+
+                        <!--聊天消息发送 Start-->
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12 margin_top_25px">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Send message ..." id="id_input_message">
+                                    <span class="input-group-btn" id="id_send_message_bth">
+                                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-send" aria-hidden="true"></span></button>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--聊天消息发送 End-->
+                    </div>
+                    <!--右侧聊天详情End-->
+
+                    <!--添加好友Start-->
+                    <div class="row hidden" id="id_add_friend_detail_div">
+                        <div class="col-md-12">
+                            <div class="empty_box_big_inherit"></div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-10">
+                                            <img src="res/images/octocat_fork.png" width="240" height="150">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="empty_box_mini_inherit"></div>
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="好友id ...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button">添加</button>
+                                    </span>
+                                </div>
+                                <!--<div>
+                                    <button class="add_friend_status_msg btn btn-default btn-success">Add id Successful.</button>
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                    <!--添加好友End-->
+
+                    <!--我的账户 Start-->
+                    <div class="row hidden" id="id_about_me_detail_div">
+                    </div>
+                    <!--我的账户 End-->
+
+                </div>
+            </div>
+            <!--Contents End-->
+
+            <!--Footer Start-->
+            <div class="row">
+                <div class="col-md-12 main_box_bg_menu">
+                    <div class="row">
+                        <div id="id_login_div" class="col-md-3 main_box_bg_menu_sp">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span>登陆</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="id_friends_div" class="col-md-3 main_box_bg_menu_sp">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span>好友</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="id_add_friend_div" class="col-md-3 main_box_bg_menu_sp">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span>添加</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="id_about_me" class="col-md-3 main_box_bg_menu_sp">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span>我的</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Footer End-->
+
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var ws = {};
+    var User = {
+        user   : null,
+        userid : null
+    };
+
+    $(function () {
+        var obj_global_friend_list = $('#id_friends_div');
+        var obj_global_login       = $('#id_login_div');
+        var obj_global_add_friend  = $('#id_add_friend_div');
+        var obj_global_about_me    = $('#id_about_me');
+
+        obj_global_login.bind('click', function(){
+            showLoginPage();
+        });
+
+        obj_global_friend_list.bind('click', function(){
+            showFriendList();
+        });
+
+        obj_global_add_friend.bind('click', function(){
+            showAddFriend();
+        });
+
+        obj_global_about_me.bind('click', function(){
+            showAboutMe();
+        });
+
+        // user info
+        userService(ws, User);
+
+    });
+</script>
+
+</body>
+</html>
