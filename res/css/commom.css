@@ -22,6 +22,11 @@
     overflow-y: scroll;
 }
 
+.main_box_bg_chatting_content {
+    height: 650px;
+    overflow: hidden;
+}
+
 .main_box_bg_menu {
     margin-top: 10px;
     height: 60px;
@@ -30,7 +35,8 @@
 
 .main_box_bg_menu_sp {
     text-align: center;
-    padding-top: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     cursor: pointer;
 }
 
